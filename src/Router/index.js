@@ -4,6 +4,7 @@ import ReposPage from '../Pages/ReposPage';
 import RepoPage from '../Pages/RepoPage';
 import AboutPage from '../Pages/AboutPage';
 import ContactPage from '../Pages/ContactPage';
+import NotFound from '../Pages/NotFound';
 
 const routes = [
     {
@@ -18,7 +19,7 @@ const routes = [
         children: [
             {
                 name: "Repo",
-                path: "repo",
+                path: "repo/:id",
                 component: RepoPage,
             }
         ]
@@ -33,6 +34,7 @@ const routes = [
         path: "/contact",
         component: ContactPage,
     },
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 export const router = createRouter({

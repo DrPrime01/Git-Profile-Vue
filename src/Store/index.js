@@ -1,29 +1,14 @@
-import axios from 'axios';
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
 
-import { endPoint } from '@/Constants/endpoints';
+import state from './state';
+import mutations from './mutations';
+import actions from './actions';
+import getters from './getters';
 
-Vue.use(Vuex)
 
-export default new Vuex.Store({
-    state: {
-        data: []
-      },
-      mutations: {
-        setData(state, payload) {
-          state.data = payload
-        }
-      },
-      actions: {
-        fetchData({ commit }) {
-          axios.get(endPoint)
-            .then(response => {
-              commit('setData', response)
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        }
-      }
+export default createStore({
+    state,
+    mutations,
+    actions,
+    getters,
 })

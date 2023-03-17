@@ -1,29 +1,32 @@
 <template>
     <h1>Repos</h1>
+    {{ getUsers }}
     
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { useStore } from "vuex";
 
 export default {
-    name: "ReposPage",
-    component: {
-        
+  data() {
+    return {
+      
+    };
+  },
+  computed: {
+    getUsers() {
+      const store = useStore();
+      return store.getters.getData;
     },
-    computed: {
-        ...mapState([
-            'data'
-        ])
-    },
-    methods: {
-        ...mapActions([
-            'fetchData'
-        ])
-    },
-    mounted() {
-        this.fetchData();
-        console.log(this.data)
+    users() {
+      const store = useStore();
+      return store.state.data;
     }
-}
+  },
+  mounted() {
+    const store = useStore();
+    store.dispatch("fetchData");
+  }
+};
+
 </script>

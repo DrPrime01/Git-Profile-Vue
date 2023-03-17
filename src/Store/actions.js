@@ -2,10 +2,13 @@ import axios from "axios";
 import { endPoint } from "@/Constants/endpoints";
 
 export default {
-  fetchData({ commit }) {
-    axios
-      .get(endPoint)
-      .then((res) => commit("setData", res))
-      .catch((err) => console.log(err));
+  async fetchData({ commit }) {
+    try {
+      const data = await axios.get(endPoint);
+      commit("setData", data.data);
+    } catch (error) {
+      alert(error);
+      console.log(error);
+    }
   },
 };
