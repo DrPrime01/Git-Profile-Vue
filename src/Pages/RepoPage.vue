@@ -1,42 +1,46 @@
 <template>
-    <div class="max-w-[1080px] mx-auto p-5 min-h-screen">
-        <div v-for="item in repo" :key="item.id">
-            <p>Name: {{ item.name }}</p>
-            <p>Language: {{ item.language }}</p>
-            <p>Stars: {{ item.stargazers_count }}</p>
-        </div>
+    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <div
+        v-if="repo"
+        class="bg-white shadow-md rounded-md p-8 w-full md:w-3/4 lg:w-1/2"
+      >
+        <h1 class="text-3xl font-bold mb-4">{{ repo.name }}</h1>
+        <a :href="repo.html_url" target="_blank" class="text-blue-600 mb-4 inline-block">
+          {{ repo.html_url }}
+        </a>
+        <p class="text-gray-600">Created at: {{ formattedCreatedAt }}</p>
+        <p class="text-gray-600">Language: {{ repo.language }}</p>
+        <p class="text-gray-600">Stars: {{ repo.stargazers_count }}</p>
+      </div>
     </div>
-</template>
-
-<script>
-import { useStore } from "vuex";
-
-export default {
+  </template>
+  
+  <script>
+  import { mapGetters, mapActions } from "vuex";
+  
+  export default {
     name: "RepoPage",
     data() {
-        return {
-            repo: [],
-        }
+      return {
+        repo: null,
+      };
     },
     computed: {
-        getRepos() {
-            const store = useStore();
-            return store.getters.getRepos;
-        },
-        repos() {
-            const store = useStore();
-            return store.state.repos;
-        },
+      ...mapGetters(["getRepos"]),
+      formattedCreatedAt() {
+        return this.repo ? new Date(this.repo.created_at).toLocaleDateString() : "";
+      },
     },
     methods: {
-        repoData(id) {
-            return this.getRepos.filter(repo => repo.id === parseInt(id))
-        },
+      ...mapActions(["fetchRepos"]),
+      repoData(id) {
+        return this.getRepos.filter((repo) => repo.id === parseInt(id))[0];
+      },
     },
-    mounted() {
-        const store = useStore();
-        store.dispatch("fetchRepos");
-        this.repo = this.repoData(this.$route.params.id);
-    }
-}
-</script>
+    async mounted() {
+      await this.fetchRepos();
+      this.repo = this.repoData(this.$route.params.id);
+    },
+  };
+  </script>
+  
