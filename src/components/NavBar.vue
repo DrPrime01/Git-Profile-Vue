@@ -1,5 +1,5 @@
 <template>
-    <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+    <Disclosure as="nav" class="bg-gray-800" v-slot={open}>
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -20,7 +20,8 @@
                         <div class="flex space-x-4">
                             <RouterLink v-for="(item) in navigation" :key="item.name" :to="item.to"
                                 :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']"
-                                :aria-current="item.current ? 'page' : undefined">{{ item.name }}</RouterLink>
+                                :aria-current="item.current ? 'page' : undefined" @click="open = false">{{ item.name }}
+                            </RouterLink>
                         </div>
                     </div>
                 </div>
@@ -31,18 +32,14 @@
             <div class="space-y-1 px-2 pt-2 pb-3">
                 <RouterLink v-for="(item) in navigation" :key="item.name" as="a" :to="item.to"
                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
-                    :aria-current="item.current ? 'page' : undefined">{{ item.name }}</RouterLink>
+                    :aria-current="item.current ? 'page' : undefined" @click="open = !open">{{ item.name }}</RouterLink>
             </div>
         </DisclosurePanel>
     </Disclosure>
 </template>
-  
-
-  
-  
- 
 
 <script>
+
 import { Disclosure, DisclosureButton, DisclosurePanel, } from '@headlessui/vue';
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline';
 export default {
@@ -57,12 +54,42 @@ export default {
     data() {
         return {
             navigation: [
-                { name: 'Home', to: '/', current: false },
+                { name: 'Home', to: '/', current: true },
                 { name: 'Repos', to: '/repos', current: false },
                 { name: 'About', to: '/about', current: false },
                 { name: 'Contact', to: '/contact', current: false },
-            ]
+            ],
+            open: false,
         };
+    },
+    computed: {
+        currentPath() {
+            return this.$route.path;
+        },
+    },
+    mounted() {
+        this.navigation.forEach((item) => {
+            if (item.to === this.currentPath) {
+                item.current = true;
+            } else {
+                item.current = false;
+            }
+        });
+        console.log(this.currentPath)
+    },
+    watch: {
+        currentPath() {
+            this.navigation.forEach((item) => {
+                if (item.to === this.currentPath) {
+                    item.current = true;
+                } else {
+                    item.current = false;
+                }
+            });
+            if (this.open) {
+                this.open = false;
+            }
+        },
     },
     // methods: {
     //     currentPage(index) {
