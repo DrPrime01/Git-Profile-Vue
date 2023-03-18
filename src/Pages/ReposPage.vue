@@ -1,14 +1,14 @@
 <template>
-  <h1>Repos</h1>
-
-  <div class="flex flex-row justify-between sm:flex-col">
+  <div class="max-w-[1080px] mx-auto p-5">
+  <div class="flex flex-col justify-between sm:flex-col xs:flex-col">
     <ProfileSection :name="getData.name" :avatar="getData.avatar_url" :username="getData.login"
       :twitter="getData.twitter_username" :bio="getData.bio" :location="getData.location" :email="email"
-      :twitter_url="`https://twitter.com/${getData.twitter_username}`" />
-    <div>
-      <ReposTable />
+      :twitter_url="`https://twitter.com/${getData.twitter_username}`"/>
+    <div class="mt-20 xs:mt-10 sm:mt-16">
+      <ReposTable :repos="getRepos" :pageSize="pageSize" :currentPage="currentPage"/>
       <PaginationComponent :itemsCount="getRepos.length" :pageSize="pageSize" :currentPage="currentPage" :onPageChange="onPageChange"/>
     </div>
+  </div>
   </div>
 </template>
 

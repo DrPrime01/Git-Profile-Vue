@@ -1,15 +1,10 @@
 <template>
-  <nav class="flex items-center justify-center flex-row mt-4">
+  <nav class="flex items-center justify-end flex-row mt-4">
     <ul class="inline-flex">
-      <li
-        v-for="page in pages"
-        :key="page"
-        class="{page === currentPage ? inline-block border active : inline-block border}"
-      >
-        <a
-          class="bg-white text-gray-700 inline-block px-4 py-3 hover:bg-gray-100 cursor-pointer"
-          >{{ page }}</a
-        >
+      <li v-for="page in pages" :key="page"
+        class="{page === currentPage ? inline-block border active : inline-block border}">
+        <a class="bg-white text-gray-700 inline-block px-4 py-3 hover:bg-gray-100 cursor-pointer"
+          @click="onPageChange(page)">{{ page }}</a>
       </li>
     </ul>
   </nav>
