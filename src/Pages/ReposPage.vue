@@ -1,31 +1,64 @@
 <template>
-    <h1>Repos</h1>
-    {{ getUsers }}
-    
+  <h1>Repos</h1>
+
+  <div class="flex flex-row justify-between sm:flex-col">
+    <ProfileSection :name="getData.name" :avatar="getData.avatar_url" :username="getData.login"
+      :twitter="getData.twitter_username" :bio="getData.bio" :location="getData.location" :email="email"
+      :twitter_url="`https://twitter.com/${getData.twitter_username}`" />
+    <div>
+      <ReposTable />
+      <PaginationComponent :itemsCount="getRepos.length" :pageSize="pageSize" :currentPage="currentPage" :onPageChange="onPageChange"/>
+    </div>
+  </div>
 </template>
 
 <script>
 import { useStore } from "vuex";
+import ProfileSection from "@/components/ProfileSection";
+import PaginationComponent from "@/components/PaginationComponent";
+import ReposTable from "@/components/ReposTable";
 
 export default {
+  name: "ReposPage",
+  components: {
+    ProfileSection,
+    PaginationComponent,
+    ReposTable,
+  },
   data() {
     return {
-      
+      email: "gabrielshoyombo2002@gmail.com",
+      pageSize: 5,
+      currentPage: 1,
     };
   },
+  methods: {
+    onPageChange(page) {
+      this.currentPage = page;
+    }
+  },
   computed: {
-    getUsers() {
+    getData() {
       const store = useStore();
       return store.getters.getData;
     },
-    users() {
+    getRepos() {
+      const store = useStore();
+      return store.getters.getRepos;
+    },
+    data() {
       const store = useStore();
       return store.state.data;
+    },
+    repos() {
+      const store = useStore();
+      return store.state.repos;
     }
   },
   mounted() {
     const store = useStore();
     store.dispatch("fetchData");
+    store.dispatch("fetchRepos");
   }
 };
 

@@ -1,31 +1,38 @@
 <template>
-    <nav>
-        <ul>
-            <li v-for="page in pages" :key="page" class="[page === currentPage ? page-item active : page-item]">
-                <a>{{ page }}</a>
-            </li>
-        </ul>
-    </nav>
+  <nav class="flex items-center justify-center flex-row mt-4">
+    <ul class="inline-flex">
+      <li
+        v-for="page in pages"
+        :key="page"
+        class="{page === currentPage ? inline-block border active : inline-block border}"
+      >
+        <a
+          class="bg-white text-gray-700 inline-block px-4 py-3 hover:bg-gray-100 cursor-pointer"
+          >{{ page }}</a
+        >
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from "lodash";
 export default {
-    name: "PaginationComponent",
-    props: {
-        itemsCount: Number,
-        pageSize: Number,
-        currentPage: Number,
-        onPageChange: Function,
+  name: "PaginationComponent",
+  props: {
+    itemsCount: Number,
+    pageSize: Number,
+    currentPage: Number,
+    onPageChange: Function,
+  },
+  computed: {
+    pagesCount() {
+      return Math.ceil(this.itemsCount / this.pageSize);
     },
-    computed: {
-        pagesCount() {
-            return Math.ceil(this.itemsCount/this.pageSize)
-        },
-        pages() {
-            if(this.pagesCount === 1) return null;
-            return _.range(1, this.pagesCount + 1);
-        }
-    }
-}
+    pages() {
+      if (this.pagesCount === 1) return null;
+      return _.range(1, this.pagesCount + 1);
+    },
+  },
+};
 </script>
