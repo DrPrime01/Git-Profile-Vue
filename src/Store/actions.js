@@ -15,7 +15,6 @@ export default {
     try {
       const data = await axios.get(reposEndPoint);
       commit("setRepos", data.data);
-      console.log("setRepos", data.data)
     } catch (error) {
       console.log(error);
     }

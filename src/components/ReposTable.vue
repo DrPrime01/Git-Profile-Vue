@@ -16,7 +16,7 @@
                     <td class="px-6 py-4 whitespace-nowrap">{{repo.language}}</td>
                     <td class="px-6 py-4 whitespace-nowrap">{{repo.stargazers_count}}</td>
                     <td class="px-6 py-4 whitespace-nowrap"><a :href="repo.html_url">View on GitHub</a></td>
-                    <td class="px-6 py-4 whitespace-nowrap"><RouterLink :to="`/repos/repo/${repo.id}`">Explore Repo</RouterLink></td>
+                    <td class="px-6 py-4 whitespace-nowrap"><RouterLink :to="`/repo/${repo.id}`">Explore Repo</RouterLink></td>
                 </tr>
             </tbody>
         </table>

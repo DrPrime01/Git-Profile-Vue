@@ -13,12 +13,12 @@
                 </div>
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                     <div class="flex flex-shrink-0 items-center">
-                        <span class="block h-8 w-auto lg:hidden">GitProfile</span>
-                        <span class="hidden h-8 w-auto lg:block">GitProfile</span>
+                        <span class="block h-8 w-auto lg:hidden text-white text-bold text-lg">GitProfile</span>
+                        <span class="hidden h-8 w-auto lg:block text-white text-bold text-lg">GitProfile</span>
                     </div>
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex space-x-4">
-                            <RouterLink v-for="(item, index) in navigation" :key="item.name" :to="item.to" @click="currentPage(index)"
+                            <RouterLink v-for="(item) in navigation" :key="item.name" :to="item.to"
                                 :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-sm font-medium']"
                                 :aria-current="item.current ? 'page' : undefined">{{ item.name }}</RouterLink>
                         </div>
@@ -29,7 +29,7 @@
 
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pt-2 pb-3">
-                <RouterLink v-for="(item, index) in navigation" :key="item.name" as="a" :to="item.to" @click="currentPage(index)"
+                <RouterLink v-for="(item) in navigation" :key="item.name" as="a" :to="item.to"
                     :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
                     :aria-current="item.current ? 'page' : undefined">{{ item.name }}</RouterLink>
             </div>
@@ -57,18 +57,18 @@ export default {
     data() {
         return {
             navigation: [
-                { name: 'Home', to: '/', current: true },
+                { name: 'Home', to: '/', current: false },
                 { name: 'Repos', to: '/repos', current: false },
                 { name: 'About', to: '/about', current: false },
                 { name: 'Contact', to: '/contact', current: false },
             ]
         };
     },
-    methods: {
-        currentPage(index) {
-            console.log("index", index)
-            this.navigation[index].current = !(this.navigation[index].current);
-        }
-    }
+    // methods: {
+    //     currentPage(index) {
+    //         console.log("index", index)
+    //         this.navigation[index].current = !(this.navigation[index].current);
+    //     }
+    // }
 };
 </script>

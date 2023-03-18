@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[1080px] mx-auto p-5">
+  <div class="max-w-[1080px] mx-auto p-5 min-h-screen">
   <div class="flex flex-col justify-between sm:flex-col xs:flex-col">
     <ProfileSection :name="getData.name" :avatar="getData.avatar_url" :username="getData.login"
       :twitter="getData.twitter_username" :bio="getData.bio" :location="getData.location" :email="email"
