@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div class="flex flex-col mx-auto max-w-[1080px] p-5 items-center justify-center min-h-screen bg-gray-100">
       <div
         v-if="repo"
         class="bg-white shadow-md rounded-md p-8 w-full md:w-3/4 lg:w-1/2"
