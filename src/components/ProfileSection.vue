@@ -4,8 +4,8 @@
             <img :src="avatar" alt="profile" class="h-auto w-full"/>
         </div>
         <div class="name">
-            <h2 class="font-2xl font-semibold text-slate-500">{{ name }}</h2>
-            <h3 class="text-slate-400 font-lg font-thin">{{ username }}</h3>
+            <h2 class="font-semibold text-3xl uppercase text-slate-500">{{ name }}</h2>
+            <h3 class="text-slate-400 text-lg font-medium">{{ username }}</h3>
         </div>
         <div class="bio">
             <p>{{ bio }}</p>
